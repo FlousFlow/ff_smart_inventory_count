@@ -1,0 +1,12 @@
+<odoo>
+    <record id="seq_inventory_count_session" model="ir.sequence">
+        <field name="name">Inventory Count Session</field>
+        <field name="code">ff.inventory.count.session</field>
+        <field name="prefix">COUNT/</field><field name="padding">5</field>
+    </record>
+    <record id="seq_inventory_count_sheet" model="ir.sequence">
+        <field name="name">Inventory Count Sheet</field>
+        <field name="code">ff.inventory.count.sheet</field>
+        <field name="prefix">SHEET/</field><field name="padding">5</field>
+    </record>
+</odoo>

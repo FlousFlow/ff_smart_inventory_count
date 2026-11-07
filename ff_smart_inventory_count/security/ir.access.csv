@@ -1,0 +1,10 @@
+id,name,model_id,group_id/id,operation,domain
+access_count_session_user,count.session.user,ff.inventory.count.session,ff_smart_inventory_count.group_count_user,r,"[('company_id', 'in', company_ids)]"
+access_count_session_manager,count.session.manager,ff.inventory.count.session,ff_smart_inventory_count.group_count_manager,crud,"[('company_id', 'in', company_ids)]"
+access_count_assignment_manager,count.assignment.manager,ff.inventory.count.assignment,ff_smart_inventory_count.group_count_manager,crud,"[('company_id', 'in', company_ids)]"
+access_count_sheet_user,count.sheet.user,ff.inventory.count.sheet,ff_smart_inventory_count.group_count_user,cru,"[('assigned_user_id', '=', user.id), ('company_id', 'in', company_ids)]"
+access_count_sheet_manager,count.sheet.manager,ff.inventory.count.sheet,ff_smart_inventory_count.group_count_manager,crud,"[('company_id', 'in', company_ids)]"
+access_count_line_user,count.line.user,ff.inventory.count.line,ff_smart_inventory_count.group_count_user,cru,"[('sheet_id.assigned_user_id', '=', user.id), ('company_id', 'in', company_ids)]"
+access_count_line_manager,count.line.manager,ff.inventory.count.line,ff_smart_inventory_count.group_count_manager,crud,"[('company_id', 'in', company_ids)]"
+access_count_consolidated_user,count.consolidated.user,ff.inventory.count.consolidated.line,ff_smart_inventory_count.group_count_user,r,"[('company_id', 'in', company_ids)]"
+access_count_consolidated_manager,count.consolidated.manager,ff.inventory.count.consolidated.line,ff_smart_inventory_count.group_count_manager,crud,"[('company_id', 'in', company_ids)]"

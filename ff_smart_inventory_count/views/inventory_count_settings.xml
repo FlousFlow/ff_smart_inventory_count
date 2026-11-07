@@ -1,0 +1,31 @@
+<odoo>
+    <record id="res_config_settings_view_form_inventory_count" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.inventory.count</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='stock']/block[@name='operations_setting_container']" position="inside">
+                <setting id="smart_inventory_count_journal" string="Inventory Count Journal"
+                         help="The general journal used for approved inventory count variance entries.">
+                    <field name="inventory_count_journal_id" options="{'no_create': True}"/>
+                    <div class="text-muted">Use a dedicated general journal, for example Inventory Adjustments.</div>
+                </setting>
+                <setting id="smart_inventory_count_damage_account" string="Damaged Products Account"
+                         help="Account used when the variance reason is damaged products.">
+                    <field name="inventory_count_damage_account_id" options="{'no_create': True}"/>
+                    <div class="text-muted">Used for write-offs caused by damaged or spoiled stock.</div>
+                </setting>
+                <setting id="smart_inventory_count_employee_loss_account" string="Employee Loss Account"
+                         help="Account used when the variance reason is loss attributed to an employee.">
+                    <field name="inventory_count_employee_loss_account_id" options="{'no_create': True}"/>
+                    <div class="text-muted">Used when the approved variance is assigned to an employee loss account.</div>
+                </setting>
+                <setting id="smart_inventory_count_cogs_account" string="Inventory Count COGS Account"
+                         help="Account used when the variance reason is recognized as cost of goods sold.">
+                    <field name="inventory_count_cogs_account_id" options="{'no_create': True}"/>
+                    <div class="text-muted">Used when the variance should be recognized in cost of goods sold.</div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>

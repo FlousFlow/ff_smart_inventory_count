@@ -1,0 +1,4 @@
+<odoo>
+    <menuitem id="menu_count_sessions" name="Count Sessions" parent="stock.menu_stock_warehouse_mgmt" action="action_count_sessions" sequence="25" groups="ff_smart_inventory_count.group_count_manager"/>
+    <menuitem id="menu_count_sheets" name="My Count Sheets" parent="stock.menu_stock_warehouse_mgmt" action="action_count_sheets" sequence="26"/>
+</odoo>

@@ -1,0 +1,601 @@
+# Translation of Flous Flow Smart Inventory Count for Arabic (Egyptian).
+msgid ""
+msgstr ""
+"Project-Id-Version: Flous Flow Smart Inventory Count 20.0\n"
+"Language: ar_001\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
+msgid "Smart Inventory Count"
+msgstr "الجرد الذكي للمخزون"
+
+#. module: ff_smart_inventory_count
+#: model:ir.actions.act_window,name:ff_smart_inventory_count.action_count_sessions
+#: model:ir.ui.menu,name:ff_smart_inventory_count.menu_count_sessions
+msgid "Count Sessions"
+msgstr "جلسات الجرد"
+
+#. module: ff_smart_inventory_count
+#: model:ir.actions.act_window,name:ff_smart_inventory_count.action_count_sheets
+#: model:ir.ui.menu,name:ff_smart_inventory_count.menu_count_sheets
+msgid "My Count Sheets"
+msgstr "أوراق الجرد الخاصة بي"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__location_ids
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
+msgid "Count Locations"
+msgstr "لوكيشنات الجرد"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__assigned_user_ids
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
+msgid "Assigned Users"
+msgstr "المستخدمون المكلّفون"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__supervisor_ids
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
+msgid "Supervisors"
+msgstr "المشرفون"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__movement_policy
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
+msgid "Movement Policy"
+msgstr "سياسة حركة المخزون"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
+msgid "Allow movements and review at submission"
+msgstr "السماح بالحركات والمراجعة عند التسليم"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
+msgid "Freeze movements during count"
+msgstr "إيقاف الحركات أثناء الجرد"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_sheet_form
+msgid "Import Lines"
+msgstr "استيراد بنود الجرد"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_line_import_tree
+msgid "Import Count Lines"
+msgstr "استيراد بنود الجرد"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_sheet_form
+msgid "Product"
+msgstr "المنتج"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_sheet_form
+msgid "On Hand"
+msgstr "الكمية الحالية"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_sheet_form
+msgid "Counted Qty"
+msgstr "الكمية المعدودة"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
+msgid "Consolidated Results"
+msgstr "نتائج التجميع"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
+msgid "Sheets"
+msgstr "الأوراق"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__name
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_sheet__name
+msgid "Name"
+msgstr "الاسم"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__company_id
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_sheet__company_id
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_line__company_id
+msgid "Company"
+msgstr "الشركة"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__warehouse_id
+msgid "Warehouse"
+msgstr "المخزن"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__scheduled_date
+msgid "Scheduled Date"
+msgstr "تاريخ الجرد"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__state
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_sheet__state
+msgid "State"
+msgstr "الحالة"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_sheet__assigned_user_id
+msgid "Assigned User"
+msgstr "المستخدم المكلّف"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_sheet__session_id
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_consolidated_line__session_id
+msgid "Session"
+msgstr "الجلسة"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_sheet__location_id
+msgid "Location"
+msgstr "الموقع"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_line__location_id
+msgid "Count Location"
+msgstr "موقع الجرد"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__notes
+msgid "Notes"
+msgstr "ملاحظات"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__count_scope
+msgid "Count Scope"
+msgstr "نطاق الجرد"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__count_start_datetime
+msgid "Count Start Datetime"
+msgstr "وقت بدء الجرد"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__count_end_datetime
+msgid "Count End Datetime"
+msgstr "وقت انتهاء الجرد"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_line__product_id
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_consolidated_line__product_id
+msgid "Product"
+msgstr "المنتج"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_line__on_hand_qty
+msgid "On Hand"
+msgstr "الكمية الحالية"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_line__counted_qty
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_consolidated_line__counted_qty
+msgid "Counted Qty"
+msgstr "الكمية المعدودة"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_line__sheet_id
+msgid "Sheet"
+msgstr "ورقة الجرد"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_line__counted_at
+msgid "Counted At"
+msgstr "وقت العد"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_line__counted_by
+msgid "Counted By"
+msgstr "تم العد بواسطة"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_line__barcode_reference
+msgid "Barcode Reference"
+msgstr "مرجع الباركود"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_consolidated_line__theoretical_qty
+msgid "Theoretical Qty"
+msgstr "الكمية النظرية"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_consolidated_line__variance_qty
+msgid "Variance Qty"
+msgstr "فرق الكمية"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_consolidated_line__variance_value
+msgid "Variance Value"
+msgstr "قيمة الفرق"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_consolidated_line__variance_reason
+msgid "Variance Reason"
+msgstr "سبب الفرق"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_consolidated_line__reconciliation_status
+msgid "Reconciliation Status"
+msgstr "حالة التسوية"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields.selection,name:ff_smart_inventory_count.selection__ff_inventory_count_session__state__draft
+#: model:ir.model.fields.selection,name:ff_smart_inventory_count.selection__ff_inventory_count_sheet__state__draft
+msgid "Draft"
+msgstr "مسودة"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields.selection,name:ff_smart_inventory_count.selection__ff_inventory_count_session__state__in_progress
+#: model:ir.model.fields.selection,name:ff_smart_inventory_count.selection__ff_inventory_count_sheet__state__in_progress
+msgid "Counting"
+msgstr "جاري الجرد"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields.selection,name:ff_smart_inventory_count.selection__ff_inventory_count_session__state__submitted
+#: model:ir.model.fields.selection,name:ff_smart_inventory_count.selection__ff_inventory_count_sheet__state__submitted
+msgid "Submitted"
+msgstr "تم التسليم"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields.selection,name:ff_smart_inventory_count.selection__ff_inventory_count_session__state__under_review
+msgid "Under Review"
+msgstr "قيد المراجعة"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields.selection,name:ff_smart_inventory_count.selection__ff_inventory_count_session__state__approved
+msgid "Approved"
+msgstr "معتمد"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields.selection,name:ff_smart_inventory_count.selection__ff_inventory_count_session__state__done
+msgid "Closed"
+msgstr "مغلق"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
+msgid "Start Count"
+msgstr "بدء الجرد"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
+msgid "Consolidate"
+msgstr "تجميع النتائج"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
+msgid "Approve"
+msgstr "اعتماد"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
+msgid "Close"
+msgstr "إغلاق"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_sheet_form
+msgid "Start"
+msgstr "بدء"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_sheet_form
+msgid "Submit"
+msgstr "تسليم"
+
+#. module: ff_smart_inventory_count
+#: model:ir.module.category,name:ff_smart_inventory_count.module_category_smart_inventory_count
+msgid "Smart Inventory Count"
+msgstr "الجرد الذكي للمخزون"
+
+#. module: ff_smart_inventory_count
+#: model:res.groups,name:ff_smart_inventory_count.group_count_user
+msgid "Smart Count User"
+msgstr "مستخدم الجرد الذكي"
+
+#. module: ff_smart_inventory_count
+#: model:res.groups,name:ff_smart_inventory_count.group_count_manager
+msgid "Smart Count Supervisor"
+msgstr "مشرف الجرد الذكي"
+
+#. module: ff_smart_inventory_count
+#: model:res.groups.privilege,name:ff_smart_inventory_count.privilege_smart_inventory_count
+msgid "Smart Inventory Count"
+msgstr "الجرد الذكي للمخزون"
+
+#. module: ff_smart_inventory_count
+#: model:res.groups.privilege,description:ff_smart_inventory_count.privilege_smart_inventory_count
+msgid "Permissions for controlled physical inventory counting"
+msgstr "صلاحيات تنفيذ جرد مادي مضبوط من خلال جلسات الجرد والاعتماد"
+
+#. module: ff_smart_inventory_count
+#: model:res.groups,comment:ff_smart_inventory_count.group_count_user
+msgid "Can work on assigned count sheets, scan or select products, enter counted quantities, and submit the sheet. Cannot create sessions, consolidate results, approve variances, or close a count."
+msgstr "يمكنه العمل على أوراق الجرد المعيّنة له، واختيار المنتجات أو مسح الباركود، وإدخال الكميات المعدودة وتسليم الورقة. لا يمكنه إنشاء الجلسات أو تجميع النتائج أو اعتماد الفروقات أو إغلاق الجرد."
+
+#. module: ff_smart_inventory_count
+#: model:res.groups,comment:ff_smart_inventory_count.group_count_manager
+msgid "Can create and configure count sessions, assign users and locations, consolidate submitted sheets, review variances, approve adjustments, and close the count."
+msgstr "يمكنه إنشاء وتجهيز جلسات الجرد، وتعيين المستخدمين واللوكيشنات، وتجميع الأوراق المسلّمة، ومراجعة الفروقات، واعتماد التسويات وإغلاق الجرد."
+
+#. module: ff_smart_inventory_count
+#: code:models/inventory_count.py:163
+msgid "A count session with activity or counted quantities cannot be deleted. Cancel it instead."
+msgstr "لا يمكن حذف جلسة جرد بها حركة أو كميات معدودة. استخدم الإلغاء بدلًا من الحذف."
+
+#. module: ff_smart_inventory_count
+#: code:models/inventory_count.py:229
+msgid "A count sheet with activity or counted quantities cannot be deleted."
+msgstr "لا يمكن حذف ورقة جرد بها حركة أو كميات معدودة."
+
+#. module: ff_smart_inventory_count
+#: code:models/inventory_count.py:330
+msgid "Counted lines cannot be deleted after counting has started."
+msgstr "لا يمكن حذف بنود الجرد بعد بدء عملية العد."
+
+#. module: ff_smart_inventory_count
+#: code:models/inventory_count.py:388
+msgid "Approved inventory results cannot be deleted."
+msgstr "لا يمكن حذف نتائج الجرد المعتمدة."
+
+#. module: ff_smart_inventory_count
+msgid "Apply Adjustments"
+msgstr "تطبيق التعديلات"
+
+#. module: ff_smart_inventory_count
+msgid "Adjustment Applied"
+msgstr "تم تطبيق التعديل"
+
+#. module: ff_smart_inventory_count
+msgid "Adjustments Applied"
+msgstr "تم تطبيق التعديلات"
+
+#. module: ff_smart_inventory_count
+msgid "Inventory quantities have been updated successfully."
+msgstr "تم تحديث كميات المخزون بنجاح."
+
+#. module: ff_smart_inventory_count
+msgid "Pending"
+msgstr "معلّق"
+
+#. module: ff_smart_inventory_count
+msgid "Adjust"
+msgstr "تعديل"
+
+#. module: ff_smart_inventory_count
+msgid "Ignore"
+msgstr "تجاهل"
+
+#. module: ff_smart_inventory_count
+msgid "Damaged Products"
+msgstr "هالك منتجات"
+
+#. module: ff_smart_inventory_count
+msgid "Employee Loss"
+msgstr "فقد بسبب موظف"
+
+#. module: ff_smart_inventory_count
+msgid "Recognize Cost of Goods Sold"
+msgstr "الاعتراف بتكلفة البضاعة المباعة"
+
+#. module: ff_smart_inventory_count
+msgid "Select a reason for every inventory variance before approval."
+msgstr "اختر سببًا لكل فرق جرد قبل الاعتماد."
+
+#. module: ff_smart_inventory_count
+msgid "Select a reason before applying an inventory variance."
+msgstr "اختر سبب الفرق قبل تطبيق تسوية الجرد."
+
+#. module: ff_smart_inventory_count
+msgid "Configure the inventory count journal, variance account, and product stock valuation account before applying the adjustment."
+msgstr "اضبط دفتر يومية الجرد وحساب الفرق وحساب تقييم مخزون المنتج قبل تطبيق التعديل."
+
+#. module: ff_smart_inventory_count
+msgid "The inventory variance has no accounting value because the product cost is zero."
+msgstr "فرق الجرد ليس له قيمة محاسبية لأن تكلفة المنتج تساوي صفرًا."
+
+#. module: ff_smart_inventory_count
+msgid "Inventory Count Journal"
+msgstr "دفتر يومية جرد المخزون"
+
+#. module: ff_smart_inventory_count
+msgid "General journal used for accounting entries created by approved inventory count variances."
+msgstr "دفتر اليومية العام المستخدم للقيود الناتجة عن فروقات الجرد المعتمدة."
+
+#. module: ff_smart_inventory_count
+msgid "Use a dedicated general journal, for example Inventory Adjustments."
+msgstr "استخدم دفتر يومية عام مخصصًا، مثل دفتر تسويات المخزون."
+
+#. module: ff_smart_inventory_count
+msgid "Damaged Products Account"
+msgstr "حساب هالك المنتجات"
+
+#. module: ff_smart_inventory_count
+msgid "Account used when the variance reason is damaged products."
+msgstr "الحساب المستخدم عندما يكون سبب الفرق هالك منتجات."
+
+#. module: ff_smart_inventory_count
+msgid "Used for write-offs caused by damaged or spoiled stock."
+msgstr "يستخدم لشطب المخزون التالف أو الفاسد."
+
+#. module: ff_smart_inventory_count
+msgid "Employee Loss Account"
+msgstr "حساب فقد الموظفين"
+
+#. module: ff_smart_inventory_count
+msgid "Account used when the variance reason is loss attributed to an employee."
+msgstr "الحساب المستخدم عندما يكون الفرق منسوبًا إلى فقد بسبب موظف."
+
+#. module: ff_smart_inventory_count
+msgid "Used when the approved variance is assigned to an employee loss account."
+msgstr "يستخدم عند تحميل الفرق المعتمد على حساب فقد الموظفين."
+
+#. module: ff_smart_inventory_count
+msgid "Inventory Count COGS Account"
+msgstr "حساب تكلفة البضاعة المباعة لفروقات الجرد"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.res_config_settings_view_form_inventory_count
+msgid "The general journal used for approved inventory count variance entries."
+msgstr "دفتر اليومية العام المستخدم لقيود فروقات الجرد المعتمدة."
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.res_config_settings_view_form_inventory_count
+msgid "Use a dedicated general journal, for example Inventory Adjustments."
+msgstr "استخدم دفتر يومية عام مخصصًا، مثل دفتر تسويات المخزون."
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.res_config_settings_view_form_inventory_count
+msgid "Account used when the variance reason is damaged products."
+msgstr "الحساب المستخدم عندما يكون سبب الفرق هالك منتجات."
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.res_config_settings_view_form_inventory_count
+msgid "Used for write-offs caused by damaged or spoiled stock."
+msgstr "يستخدم لشطب المخزون التالف أو الفاسد."
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.res_config_settings_view_form_inventory_count
+msgid "Account used when the variance reason is loss attributed to an employee."
+msgstr "الحساب المستخدم عندما يكون الفرق منسوبًا إلى فقد بسبب موظف."
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.res_config_settings_view_form_inventory_count
+msgid "Used when the approved variance is assigned to an employee loss account."
+msgstr "يستخدم عند تحميل الفرق المعتمد على حساب فقد الموظفين."
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.res_config_settings_view_form_inventory_count
+msgid "Account used when the variance reason is recognized as cost of goods sold."
+msgstr "الحساب المستخدم عندما يتم الاعتراف بالفرق كتكلفة للبضاعة المباعة."
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.res_config_settings_view_form_inventory_count
+msgid "Used when the variance should be recognized in cost of goods sold."
+msgstr "يستخدم عندما يجب تسجيل الفرق ضمن تكلفة البضاعة المباعة."
+
+#. module: ff_smart_inventory_count
+msgid "Account used when the variance reason is recognized as cost of goods sold."
+msgstr "الحساب المستخدم عندما يتم الاعتراف بالفرق كتكلفة للبضاعة المباعة."
+
+#. module: ff_smart_inventory_count
+msgid "Used when the variance should be recognized in cost of goods sold."
+msgstr "يستخدم عندما يجب تسجيل الفرق ضمن تكلفة البضاعة المباعة."
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_res_company__inventory_count_journal_id
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_res_config_settings__inventory_count_journal_id
+msgid "Inventory Count Journal"
+msgstr "دفتر يومية جرد المخزون"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_res_company__inventory_count_damage_account_id
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_res_config_settings__inventory_count_damage_account_id
+msgid "Damaged Products Account"
+msgstr "حساب هالك المنتجات"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_res_company__inventory_count_employee_loss_account_id
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_res_config_settings__inventory_count_employee_loss_account_id
+msgid "Employee Loss Account"
+msgstr "حساب فقد الموظفين"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_res_company__inventory_count_cogs_account_id
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_res_config_settings__inventory_count_cogs_account_id
+msgid "Inventory Count COGS Account"
+msgstr "حساب تكلفة البضاعة المباعة لفروقات الجرد"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.res_config_settings_view_form_inventory_count
+msgid "Inventory Count Journal"
+msgstr "دفتر يومية جرد المخزون"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.res_config_settings_view_form_inventory_count
+msgid "Damaged Products Account"
+msgstr "حساب هالك المنتجات"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.res_config_settings_view_form_inventory_count
+msgid "Employee Loss Account"
+msgstr "حساب فقد الموظفين"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.res_config_settings_view_form_inventory_count
+msgid "Inventory Count COGS Account"
+msgstr "حساب تكلفة البضاعة المباعة لفروقات الجرد"
+
+#. module: ff_smart_inventory_count
+msgid "Draft"
+msgstr "مسودة"
+
+#. module: ff_smart_inventory_count
+msgid "Counting"
+msgstr "جاري الجرد"
+
+#. module: ff_smart_inventory_count
+msgid "Submitted"
+msgstr "تم التسليم"
+
+#. module: ff_smart_inventory_count
+msgid "Under Review"
+msgstr "قيد المراجعة"
+
+#. module: ff_smart_inventory_count
+msgid "Approved"
+msgstr "معتمد"
+
+#. module: ff_smart_inventory_count
+msgid "Closed"
+msgstr "مغلق"
+
+#. module: ff_smart_inventory_count
+msgid "Manual inventory adjustments are disabled. Use Smart Inventory Count sessions and supervisor approval."
+msgstr "تم تعطيل تعديلات المخزون اليدوية. استخدم جلسات الجرد الذكي واعتماد المشرف."
+
+#. module: ff_smart_inventory_count
+msgid "Count sheets must be created from an inventory count session."
+msgstr "يجب إنشاء ورقة الجرد من داخل جلسة جرد."
+
+#. module: ff_smart_inventory_count
+msgid "Select a count location on the inventory session before adding lines."
+msgstr "حدد لوكيشن الجرد في الجلسة قبل إضافة البنود."
+
+#. module: ff_smart_inventory_count
+msgid "Select a count location on the inventory session before starting the sheet."
+msgstr "حدد لوكيشن الجرد في الجلسة قبل بدء الورقة."
+
+#. module: ff_smart_inventory_count
+msgid "Each assigned location must be selected on the inventory session."
+msgstr "يجب أن يكون كل لوكيشن مسند محددًا ضمن لوكيشنات جلسة الجرد."
+
+#. module: ff_smart_inventory_count
+msgid "Each assigned location must belong to the selected warehouse."
+msgstr "يجب أن يتبع كل لوكيشن مسند للمخزن المحدد."
+
+#. module: ff_smart_inventory_count
+msgid "Count assignments must use internal locations."
+msgstr "يجب أن تستخدم إسنادات الجرد لوكيشنات داخلية."
+
+#. module: ff_smart_inventory_count
+msgid "Assign at least one counting user to a location before starting."
+msgstr "عيّن مستخدم جرد واحدًا على الأقل إلى لوكيشن قبل بدء الجرد."
+
+#. module: ff_smart_inventory_count
+msgid "Assign a counting user to every selected location before starting."
+msgstr "عيّن مستخدم جرد لكل لوكيشن محدد قبل بدء الجرد."
+
+#. module: ff_smart_inventory_count
+msgid "The same user cannot be assigned to the same location twice in one session."
+msgstr "لا يمكن إسناد نفس المستخدم إلى نفس اللوكيشن مرتين في جلسة واحدة."

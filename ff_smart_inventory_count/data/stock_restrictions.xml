@@ -1,0 +1,6 @@
+<odoo>
+    <!-- Smart Inventory Count replaces Odoo's manual Physical Inventory menu. -->
+    <record id="stock.menu_action_inventory_tree" model="ir.ui.menu">
+        <field name="active">False</field>
+    </record>
+</odoo>
