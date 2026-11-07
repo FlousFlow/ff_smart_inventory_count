@@ -166,6 +166,20 @@ class TestSmartInventoryCount(TransactionCase):
         self.assertFalse(line.applied)
         self.assertFalse(line.account_move_id)
 
+    def test_session_rejects_cross_company_warehouse(self):
+        other_company = self.env["res.company"].create({"name": "Smart Count Other Company"})
+        other_warehouse = self.env["stock.warehouse"].create({
+            "name": "Smart Other Warehouse",
+            "code": "SC2",
+            "company_id": other_company.id,
+        })
+        with self.assertRaises(UserError):
+            self.env["ff.inventory.count.session"].create({
+                "warehouse_id": other_warehouse.id,
+                "company_id": self.warehouse.company_id.id,
+                "location_ids": [(6, 0, [other_warehouse.lot_stock_id.id])],
+            })
+
     def test_variance_application_posts_accounting_move(self):
         journal = self.env["account.journal"].search([
             ("company_id", "=", self.warehouse.company_id.id), ("type", "=", "general")

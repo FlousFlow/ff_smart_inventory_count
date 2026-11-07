@@ -8,6 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. module: ff_smart_inventory_count
+#. module: ff_smart_inventory_count
 #: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
 msgid "Smart Inventory Count"
 msgstr "الجرد الذكي للمخزون"
@@ -26,12 +27,14 @@ msgstr "أوراق الجرد الخاصة بي"
 
 #. module: ff_smart_inventory_count
 #: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__location_ids
+#. module: ff_smart_inventory_count
 #: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
 msgid "Count Locations"
 msgstr "لوكيشنات الجرد"
 
 #. module: ff_smart_inventory_count
 #: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__assigned_user_ids
+#. module: ff_smart_inventory_count
 #: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
 msgid "Assigned Users"
 msgstr "المستخدمون المكلّفون"
@@ -563,6 +566,61 @@ msgstr "مغلق"
 #. module: ff_smart_inventory_count
 msgid "Manual inventory adjustments are disabled. Use Smart Inventory Count sessions and supervisor approval."
 msgstr "تم تعطيل تعديلات المخزون اليدوية. استخدم جلسات الجرد الذكي واعتماد المشرف."
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
+msgid "Location Assignments"
+msgstr "تعيينات المواقع"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__assignment_ids
+msgid "Location Assignments"
+msgstr "تعيينات المواقع"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
+msgid "Assigned User"
+msgstr "المستخدم المكلّف"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_assignment__assigned_user_id
+msgid "Assigned User"
+msgstr "المستخدم المكلّف"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
+msgid "Location"
+msgstr "الموقع"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_assignment__location_id
+msgid "Location"
+msgstr "الموقع"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields.selection,name:ff_smart_inventory_count.selection__ff_inventory_count_session__movement_policy__allow
+msgid "Allow movements and review at submission"
+msgstr "السماح بالحركات والمراجعة عند التسليم"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields.selection,name:ff_smart_inventory_count.selection__ff_inventory_count_session__movement_policy__freeze
+msgid "Freeze movements during count"
+msgstr "إيقاف الحركات أثناء الجرد"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields.selection,name:ff_smart_inventory_count.selection__ff_inventory_count_session__count_scope__locations
+msgid "Selected Locations"
+msgstr "المواقع المحددة"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields.selection,name:ff_smart_inventory_count.selection__ff_inventory_count_session__count_scope__warehouse
+msgid "Whole Warehouse"
+msgstr "المخزن بالكامل"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_sheet__counted_product_count
+msgid "Counted Product Count"
+msgstr "عدد المنتجات المعدودة"
 
 #. module: ff_smart_inventory_count
 msgid "Count sheets must be created from an inventory count session."
