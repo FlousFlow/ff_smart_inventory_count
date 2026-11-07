@@ -95,6 +95,77 @@ class TestSmartInventoryCount(TransactionCase):
         with self.assertRaises(UserError):
             quant.with_context(inventory_mode=True).write({"inventory_quantity": 1.0})
 
+    def test_count_user_cannot_read_another_users_sheet(self):
+        count_group = self.env.ref("ff_smart_inventory_count.group_count_user")
+        user_a = self.env["res.users"].create({
+            "name": "Smart Count User A",
+            "login": "smart-count-a@example.test",
+            "group_ids": [(6, 0, [count_group.id])],
+        })
+        user_b = self.env["res.users"].create({
+            "name": "Smart Count User B",
+            "login": "smart-count-b@example.test",
+            "group_ids": [(6, 0, [count_group.id])],
+        })
+        session = self._session([(user_a, self.location), (user_b, self.location)])
+        session.action_start()
+        sheet_a = session.sheet_ids.filtered(lambda sheet: sheet.assigned_user_id == user_a)
+        sheet_b = session.sheet_ids.filtered(lambda sheet: sheet.assigned_user_id == user_b)
+        visible_to_a = self.env["ff.inventory.count.sheet"].with_user(user_a).search(
+            [("id", "in", (sheet_a | sheet_b).ids)]
+        )
+        self.assertEqual(visible_to_a, sheet_a)
+
+    def test_consolidation_keeps_lot_and_package_identity(self):
+        self.product.tracking = "lot"
+        lot = self.env["stock.lot"].create({
+            "name": "SMART-LOT-001",
+            "product_id": self.product.id,
+            "company_id": self.warehouse.company_id.id,
+        })
+        package = self.env["stock.package"].create({"name": "SMART-PACK-001"})
+        session = self._session()
+        session.action_start()
+        sheet = session.sheet_ids
+        sheet.action_start()
+        self.env["ff.inventory.count.line"].create({
+            "sheet_id": sheet.id,
+            "product_id": self.product.id,
+            "lot_id": lot.id,
+            "package_id": package.id,
+            "counted_qty": 2.0,
+        })
+        sheet.action_submit()
+        session.action_consolidate()
+        result = session.consolidated_line_ids
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result.lot_id, lot)
+        self.assertEqual(result.package_id, package)
+
+    def test_missing_account_configuration_fails_before_stock_change(self):
+        company = self.warehouse.company_id
+        company.write({
+            "inventory_count_journal_id": False,
+            "inventory_count_damage_account_id": False,
+            "inventory_count_employee_loss_account_id": False,
+            "inventory_count_cogs_account_id": False,
+        })
+        session = self._session()
+        line = self.env["ff.inventory.count.consolidated.line"].create({
+            "session_id": session.id,
+            "product_id": self.product.id,
+            "location_id": self.location.id,
+            "product_uom_id": self.product.uom_id.id,
+            "theoretical_qty": 1.0,
+            "counted_qty": 0.0,
+            "reconciliation_status": "adjust",
+            "variance_reason": "cogs",
+        })
+        with self.assertRaises(ValidationError):
+            line.apply_adjustment()
+        self.assertFalse(line.applied)
+        self.assertFalse(line.account_move_id)
+
     def test_variance_application_posts_accounting_move(self):
         journal = self.env["account.journal"].search([
             ("company_id", "=", self.warehouse.company_id.id), ("type", "=", "general")
