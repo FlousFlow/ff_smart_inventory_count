@@ -215,3 +215,49 @@ class TestSmartInventoryCount(TransactionCase):
         line.apply_adjustment()
         self.assertTrue(line.applied)
         self.assertEqual(line.account_move_id.state, "posted")
+
+    def test_real_time_valuation_reclassifies_inventory_loss_account(self):
+        valuation_account = self.env["account.account"].search([
+            ("account_type", "=", "asset_current"),
+        ], limit=1)
+        variance_account = self.env["account.account"].search([
+            ("account_type", "=", "expense"),
+        ], limit=1)
+        journal = self.env["account.journal"].search([
+            ("company_id", "=", self.warehouse.company_id.id), ("type", "=", "general")
+        ], limit=1)
+        loss_location = self.env["stock.location"].search([
+            ("usage", "=", "inventory"), ("company_id", "in", [False, self.warehouse.company_id.id])
+        ], limit=1)
+        if not all((valuation_account, variance_account, journal, loss_location)):
+            self.skipTest("The disposable database has no stock-account inventory loss setup")
+        company = self.warehouse.company_id
+        company.write({
+            "inventory_count_journal_id": journal.id,
+            "inventory_count_cogs_account_id": variance_account.id,
+        })
+        loss_location.valuation_account_id = valuation_account
+        category = self.env["product.category"].create({
+            "name": "Smart Count Real-Time Category",
+            "property_cost_method": "standard",
+            "property_valuation": "real_time",
+            "property_stock_valuation_account_id": valuation_account.id,
+        })
+        self.product.categ_id = category
+        self.product.property_stock_inventory = loss_location
+        session = self._session()
+        line = self.env["ff.inventory.count.consolidated.line"].create({
+            "session_id": session.id,
+            "product_id": self.product.id,
+            "location_id": self.location.id,
+            "product_uom_id": self.product.uom_id.id,
+            "theoretical_qty": 1.0,
+            "counted_qty": 0.0,
+            "reconciliation_status": "adjust",
+            "variance_reason": "cogs",
+        })
+        line.apply_adjustment()
+        self.assertEqual(
+            set(line.account_move_id.line_ids.mapped("account_id").ids),
+            {loss_location.valuation_account_id.id, variance_account.id},
+        )

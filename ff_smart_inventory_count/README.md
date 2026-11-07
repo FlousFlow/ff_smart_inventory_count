@@ -4,6 +4,9 @@ Odoo 20 Community addon for controlled physical inventory counting. It keeps
 counting separate from Odoo stock until a supervisor approves a consolidated
 result, then uses the standard `stock.quant` inventory adjustment engine.
 
+The addon depends on `stock_account` so automated stock valuation moves remain
+consistent with the selected inventory-variance reason accounts.
+
 The module intentionally does not zero uncounted products: only products
 actually submitted by counting sheets are consolidated and adjusted.
 

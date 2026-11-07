@@ -546,7 +546,8 @@ class InventoryCountConsolidatedLine(models.Model):
             "cogs": company.inventory_count_cogs_account_id,
         }
         reason_account = account_by_reason.get(self.variance_reason)
-        valuation_account = self.product_id.categ_id.property_stock_valuation_account_id
+        category = self.product_id.categ_id.with_company(company)
+        valuation_account = category.property_stock_valuation_account_id
         journal = company.inventory_count_journal_id
         amount = abs(self.variance_value)
         if not journal or not reason_account or not valuation_account:
@@ -557,11 +558,50 @@ class InventoryCountConsolidatedLine(models.Model):
             raise ValidationError(
                 _("The inventory variance has no accounting value because the product cost is zero.")
             )
-        debit_account, credit_account = (
-            (valuation_account, reason_account)
-            if self.variance_qty > 0
-            else (reason_account, valuation_account)
+        Quant = self.env["stock.quant"].with_context(
+            inventory_mode=True, ff_smart_inventory_count_apply=True
         )
+        quant = Quant._gather(self.product_id, self.location_id, lot_id=self.lot_id, package_id=self.package_id,
+                              owner_id=self.owner_id, strict=True)
+        if not quant:
+            quant = Quant.create({"product_id": self.product_id.id, "location_id": self.location_id.id,
+                                  "lot_id": self.lot_id.id or False, "package_id": self.package_id.id or False,
+                                  "owner_id": self.owner_id.id or False})
+        automated_valuation = (
+            "property_valuation" in category._fields
+            and category.property_valuation == "real_time"
+        )
+        inventory_loss_account = False
+        if automated_valuation and "property_stock_inventory" in self.product_id._fields:
+            inventory_location = self.product_id.with_company(company).property_stock_inventory
+            inventory_loss_account = (
+                inventory_location.valuation_account_id
+                if inventory_location and "valuation_account_id" in inventory_location._fields
+                else False
+            )
+            if not inventory_loss_account:
+                raise ValidationError(
+                    _("Configure the inventory loss account on the Inventory Adjustments location before applying an automated-valuation variance.")
+                )
+            if "accounting_date" in quant._fields:
+                quant.accounting_date = self.session_id.scheduled_date
+        quant.inventory_quantity = self.counted_qty
+        quant.action_apply_inventory()
+        if automated_valuation:
+            # stock_account has already posted the valuation move. Reclassify
+            # only the inventory-loss side to the selected business reason;
+            # never post a second valuation-to-reason move.
+            debit_account, credit_account = (
+                (inventory_loss_account, reason_account)
+                if self.variance_qty > 0
+                else (reason_account, inventory_loss_account)
+            )
+        else:
+            debit_account, credit_account = (
+                (valuation_account, reason_account)
+                if self.variance_qty > 0
+                else (reason_account, valuation_account)
+            )
         move = self.env["account.move"].create({
             "move_type": "entry",
             "journal_id": journal.id,
@@ -573,17 +613,6 @@ class InventoryCountConsolidatedLine(models.Model):
             ],
         })
         move.action_post()
-        Quant = self.env["stock.quant"].with_context(
-            inventory_mode=True, ff_smart_inventory_count_apply=True
-        )
-        quant = Quant._gather(self.product_id, self.location_id, lot_id=self.lot_id, package_id=self.package_id,
-                              owner_id=self.owner_id, strict=True)
-        if not quant:
-            quant = Quant.create({"product_id": self.product_id.id, "location_id": self.location_id.id,
-                                  "lot_id": self.lot_id.id or False, "package_id": self.package_id.id or False,
-                                  "owner_id": self.owner_id.id or False})
-        quant.inventory_quantity = self.counted_qty
-        quant.action_apply_inventory()
         self.write({"applied": True, "account_move_id": move.id})
 
     def unlink(self):
