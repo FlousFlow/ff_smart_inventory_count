@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flous Flow Smart Inventory Count</title>
+  <style>
+    :root { --purple:#6653a6; --ink:#182033; --muted:#667085; --soft:#f5f4fb; --line:#e7e5ef; --green:#1d9b67; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); font-family:Arial,Helvetica,sans-serif; line-height:1.55; background:#fff; }
+    .wrap { max-width:980px; margin:0 auto; padding:28px 24px 56px; }
+    .hero { border-radius:18px; padding:44px 42px; color:#fff; background:linear-gradient(125deg,#34295f 0%,#6653a6 58%,#8676c1 100%); overflow:hidden; }
+    .eyebrow { letter-spacing:.12em; text-transform:uppercase; font-size:12px; opacity:.82; font-weight:700; }
+    h1 { margin:10px 0 12px; font-size:38px; line-height:1.12; }
+    .hero p { max-width:700px; margin:0; font-size:18px; opacity:.95; }
+    .badges { display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+    .badge { border:1px solid rgba(255,255,255,.35); border-radius:999px; padding:6px 12px; font-size:13px; }
+    h2 { margin:38px 0 12px; font-size:26px; }
+    h3 { margin:0 0 7px; font-size:18px; }
+    .lead { color:var(--muted); font-size:17px; }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:22px; }
+    .card { padding:20px; border:1px solid var(--line); border-radius:14px; background:#fff; box-shadow:0 5px 18px rgba(33,24,75,.05); }
+    .icon { width:34px; height:34px; display:grid; place-items:center; border-radius:10px; color:#fff; background:var(--purple); font-weight:700; margin-bottom:12px; }
+    .card p { margin:0; color:var(--muted); font-size:14px; }
+    .workflow { margin-top:20px; padding:20px 24px; border-radius:14px; background:var(--soft); }
+    .workflow ol { margin:0; padding-left:22px; }
+    .workflow li { padding:5px 0; }
+    .shot { margin:24px 0; border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+    .shot img { display:block; width:100%; height:auto; }
+    .caption { padding:12px 16px; color:var(--muted); font-size:14px; background:#fff; }
+    .rtl { direction:rtl; text-align:right; padding:22px 24px; border-radius:14px; background:#faf9ff; border:1px solid var(--line); }
+    .footer { margin-top:38px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:14px; }
+    @media(max-width:720px) { .grid { grid-template-columns:1fr; } .hero { padding:30px 24px; } h1 { font-size:30px; } }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Flous Flow · Odoo 20 Community</div>
+      <h1>Smart Inventory Count</h1>
+      <p>Controlled, auditable physical inventory counting for warehouses with multiple locations, assigned counters, supervisor review, and safe accounting adjustments.</p>
+      <div class="badges"><span class="badge">Multi-location</span><span class="badge">Barcode-ready</span><span class="badge">Employee sheets</span><span class="badge">Accounting controls</span></div>
+    </section>
+
+    <h2>Why Smart Inventory Count?</h2>
+    <p class="lead">Replace ad-hoc quantity edits with a clear count-to-approval workflow. Every variance is traceable to a session, location, user, reason, and accounting treatment.</p>
+    <section class="grid">
+      <article class="card"><div class="icon">1</div><h3>Assign by location</h3><p>Create one session for a warehouse and assign each internal location to the responsible counter.</p></article>
+      <article class="card"><div class="icon">2</div><h3>Count with confidence</h3><p>Employees see only their sheets, scan or select products, and record counted quantities with on-hand context.</p></article>
+      <article class="card"><div class="icon">3</div><h3>Review and post safely</h3><p>Consolidate differences, select a reason, approve, and apply the controlled inventory adjustment.</p></article>
+    </section>
+
+    <h2>Workflow</h2>
+    <div class="workflow"><ol><li>Create a draft count session and choose the warehouse.</li><li>Assign internal locations to counting users.</li><li>Start the session to generate employee count sheets.</li><li>Count products, including tracked lots and packages where applicable.</li><li>Submit sheets and consolidate only the submitted results.</li><li>Choose a reason for each non-zero variance and approve it.</li><li>Apply the approved adjustment through Odoo's inventory engine.</li></ol></div>
+
+    <div class="shot"><img src="workflow.png" alt="Smart Inventory Count workflow preview"><div class="caption">Location assignments and employee count-sheet workflow.</div></div>
+    <div class="shot"><img src="accounting.png" alt="Smart Inventory Count accounting configuration preview"><div class="caption">Accounting setup for inventory count journal and variance accounts.</div></div>
+
+    <h2>Accounting and controls</h2>
+    <p class="lead">Configure the count journal and variance accounts from Inventory settings. The module validates configuration before posting and prevents direct manual stock quantity edits outside an approved Smart Inventory Count flow.</p>
+    <div class="rtl"><strong>دعم كامل للعربية:</strong> جلسات الجرد، تعيينات المواقع، أوراق الموظفين، أسباب الفروقات، وإعدادات الحسابات متاحة بترجمات عربية واضحة.</div>
+
+    <h2>Requirements</h2>
+    <p class="lead">Odoo 20 Community · Inventory · Stock Accounting · Accounting. Install the module, configure the journal and accounts, then create the first count session.</p>
+    <div class="footer">Developed by Flous Flow · Licensed under LGPL-3</div>
+  </main>
+</body>
+</html>
