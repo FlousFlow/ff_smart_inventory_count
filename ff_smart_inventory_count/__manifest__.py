@@ -1,12 +1,17 @@
 {
     "name": "Flous Flow Smart Inventory Count",
-    "version": "20.0.1.0.21",
+    "version": "20.0.1.0.22",
     "category": "Inventory/Inventory",
     "summary": "Controlled multi-user physical inventory counts",
     "description": """Controlled physical inventory counting with employee sheets,
 consolidation, variance review, and safe standard Odoo inventory adjustments.""",
     "author": "Flous Flow",
     "license": "LGPL-3",
+    "images": [
+        "static/description/cover.png",
+        "static/description/workflow.png",
+        "static/description/accounting.png",
+    ],
     "depends": ["stock", "stock_account", "account", "mail"],
     "data": [
         "security/security.xml",

@@ -18,10 +18,10 @@
     h2 { margin:38px 0 12px; font-size:26px; }
     h3 { margin:0 0 7px; font-size:18px; }
     .lead { color:var(--muted); font-size:17px; }
-    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:22px; }
-    .card { padding:20px; border:1px solid var(--line); border-radius:14px; background:#fff; box-shadow:0 5px 18px rgba(33,24,75,.05); }
-    .icon { width:34px; height:34px; display:grid; place-items:center; border-radius:10px; color:#fff; background:var(--purple); font-weight:700; margin-bottom:12px; }
-    .card p { margin:0; color:var(--muted); font-size:14px; }
+    .ff-feature-grid { display:flex; flex-wrap:wrap; gap:16px; margin-top:22px; }
+    .ff-feature-card { flex:1 1 220px; min-width:220px; padding:20px; border:1px solid var(--line); border-radius:14px; background:#fff; box-shadow:0 5px 18px rgba(33,24,75,.05); }
+    .ff-icon { width:34px; height:34px; display:flex; align-items:center; justify-content:center; border-radius:10px; color:#fff; background:var(--purple); font-weight:700; margin-bottom:12px; }
+    .ff-feature-card p { margin:0; color:var(--muted); font-size:14px; }
     .workflow { margin-top:20px; padding:20px 24px; border-radius:14px; background:var(--soft); }
     .workflow ol { margin:0; padding-left:22px; }
     .workflow li { padding:5px 0; }
@@ -30,7 +30,7 @@
     .caption { padding:12px 16px; color:var(--muted); font-size:14px; background:#fff; }
     .rtl { direction:rtl; text-align:right; padding:22px 24px; border-radius:14px; background:#faf9ff; border:1px solid var(--line); }
     .footer { margin-top:38px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:14px; }
-    @media(max-width:720px) { .grid { grid-template-columns:1fr; } .hero { padding:30px 24px; } h1 { font-size:30px; } }
+    @media(max-width:720px) { .ff-feature-card { flex-basis:100%; min-width:0; } .hero { padding:30px 24px; } h1 { font-size:30px; } }
   </style>
 </head>
 <body>
@@ -44,10 +44,10 @@
 
     <h2>Why Smart Inventory Count?</h2>
     <p class="lead">Replace ad-hoc quantity edits with a clear count-to-approval workflow. Every variance is traceable to a session, location, user, reason, and accounting treatment.</p>
-    <section class="grid">
-      <article class="card"><div class="icon">1</div><h3>Assign by location</h3><p>Create one session for a warehouse and assign each internal location to the responsible counter.</p></article>
-      <article class="card"><div class="icon">2</div><h3>Count with confidence</h3><p>Employees see only their sheets, scan or select products, and record counted quantities with on-hand context.</p></article>
-      <article class="card"><div class="icon">3</div><h3>Review and post safely</h3><p>Consolidate differences, select a reason, approve, and apply the controlled inventory adjustment.</p></article>
+    <section class="ff-feature-grid">
+      <article class="ff-feature-card"><div class="ff-icon">1</div><h3>Assign by location</h3><p>Create one session for a warehouse and assign each internal location to the responsible counter.</p></article>
+      <article class="ff-feature-card"><div class="ff-icon">2</div><h3>Count with confidence</h3><p>Employees see only their sheets, scan or select products, and record counted quantities with on-hand context.</p></article>
+      <article class="ff-feature-card"><div class="ff-icon">3</div><h3>Review and post safely</h3><p>Consolidate differences, select a reason, approve, and apply the controlled inventory adjustment.</p></article>
     </section>
 
     <h2>Workflow</h2>
