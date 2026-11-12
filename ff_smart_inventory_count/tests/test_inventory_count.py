@@ -104,6 +104,20 @@ class TestSmartInventoryCount(TransactionCase):
         line._compute_on_hand_qty()
         self.assertGreaterEqual(line.on_hand_qty, 0.0)
 
+    def test_import_line_resolves_barcode_and_backfills_export_fields(self):
+        self.product.barcode = "SMART-IMPORT-001"
+        session = self._session()
+        session.action_start()
+        sheet = session.sheet_ids
+        sheet.action_start()
+        line = self.env["ff.inventory.count.line"].create({
+            "sheet_id": sheet.id,
+            "barcode_reference": "SMART-IMPORT-001",
+            "counted_qty": 2.0,
+        })
+        self.assertEqual(line.product_id, self.product)
+        self.assertEqual(line.product_barcode, "SMART-IMPORT-001")
+
     def test_active_session_cannot_be_deleted(self):
         session = self._session()
         session.action_start()

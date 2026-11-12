@@ -483,6 +483,12 @@ class InventoryCountLine(models.Model):
     package_id = fields.Many2one("stock.package", check_company=True)
     owner_id = fields.Many2one("res.partner", check_company=True)
     product_uom_id = fields.Many2one("uom.uom", related="product_id.uom_id", store=True)
+    product_default_code = fields.Char(
+        related="product_id.default_code", string="Internal Reference", readonly=True
+    )
+    product_barcode = fields.Char(
+        related="product_id.barcode", string="Product Barcode", readonly=True
+    )
     counted_qty = fields.Float(required=True, digits="Product Unit of Measure")
     on_hand_qty = fields.Float(
         string="On Hand", compute="_compute_on_hand_qty",
@@ -499,6 +505,15 @@ class InventoryCountLine(models.Model):
         """Backfill the count location for sheets created by older revisions."""
         sheets = self.env["ff.inventory.count.sheet"]
         for vals in vals_list:
+            if not vals.get("product_id") and vals.get("barcode_reference"):
+                product = self.env["product.product"].search(
+                    [("barcode", "=", vals["barcode_reference"])], limit=1
+                )
+                if not product:
+                    raise ValidationError(
+                        _("No product was found for barcode %s.") % vals["barcode_reference"]
+                    )
+                vals["product_id"] = product.id
             sheet = sheets.browse(vals.get("sheet_id")).exists() if vals.get("sheet_id") else sheets.browse()
             if not sheet:
                 raise ValidationError(_("Count lines must be created inside an inventory count sheet."))
@@ -509,6 +524,9 @@ class InventoryCountLine(models.Model):
                         _("Select a count location on the inventory session before adding lines.")
                     )
                 vals["location_id"] = location.id
+            if vals.get("product_id") and not vals.get("barcode_reference"):
+                product = self.env["product.product"].browse(vals["product_id"])
+                vals["barcode_reference"] = product.barcode or False
             if sheet.state != "in_progress":
                 raise ValidationError(_("Count lines can only be added while the sheet is in Counting state."))
             if sheet.assigned_user_id != self.env.user and not self.env.user.has_group(
@@ -518,6 +536,15 @@ class InventoryCountLine(models.Model):
         return super().create(vals_list)
 
     def write(self, vals):
+        if vals.get("barcode_reference") and not vals.get("product_id"):
+            product = self.env["product.product"].search(
+                [("barcode", "=", vals["barcode_reference"])], limit=1
+            )
+            if not product:
+                raise ValidationError(
+                    _("No product was found for barcode %s.") % vals["barcode_reference"]
+                )
+            vals = dict(vals, product_id=product.id)
         if set(vals) == {"on_hand_qty"} and self.env.context.get("ff_inventory_count_compute"):
             return super().write(vals)
         protected = {"sheet_id", "location_id", "company_id", "counted_by", "counted_at"}

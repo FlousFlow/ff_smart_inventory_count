@@ -21,8 +21,11 @@ actually submitted by counting sheets are consolidated and adjusted.
   the module automatically creates the location assignments and count sheets.
 - Arabic translations are included for the Smart Inventory Count interface.
 - While a sheet is in Counting state, use **Import Lines** to import a CSV/XLSX
-  file with `Product` and `Counted Qty` columns. The selected sheet and count
-  location are supplied automatically.
+  file with `Barcode` and `Counted Qty` columns, or map `Product / External ID`
+  through Odoo's standard import field selector. Product name and internal
+  reference can also be used for matching through the standard many-to-one
+  import options. The selected sheet and count location are supplied
+  automatically; the list also shows on-hand quantity for review.
 - For each session, assign every location to one or more counting users. A
   separate sheet is generated for every user/location assignment.
 - Configure the inventory count journal and the variance accounts from
