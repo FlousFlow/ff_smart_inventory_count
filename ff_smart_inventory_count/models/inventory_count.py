@@ -518,6 +518,8 @@ class InventoryCountLine(models.Model):
         return super().create(vals_list)
 
     def write(self, vals):
+        if set(vals) == {"on_hand_qty"} and self.env.context.get("ff_inventory_count_compute"):
+            return super().write(vals)
         protected = {"sheet_id", "location_id", "company_id", "counted_by", "counted_at"}
         if protected.intersection(vals):
             raise AccessError(_("Count line ownership and location cannot be changed."))
@@ -534,7 +536,7 @@ class InventoryCountLine(models.Model):
     def _compute_on_hand_qty(self):
         Quant = self.env["stock.quant"].sudo()
         quantity_cache = {}
-        for rec in self:
+        for rec in self.with_context(ff_inventory_count_compute=True):
             if not rec.product_id or not rec.location_id:
                 rec.on_hand_qty = 0.0
                 continue

@@ -90,6 +90,20 @@ class TestSmartInventoryCount(TransactionCase):
         })
         self.assertEqual(line.location_id, self.location)
 
+    def test_on_hand_compute_works_after_sheet_submission(self):
+        session = self._session()
+        session.action_start()
+        sheet = session.sheet_ids
+        sheet.action_start()
+        line = self.env["ff.inventory.count.line"].create({
+            "sheet_id": sheet.id,
+            "product_id": self.product.id,
+            "counted_qty": 1.0,
+        })
+        sheet.action_submit()
+        line._compute_on_hand_qty()
+        self.assertGreaterEqual(line.on_hand_qty, 0.0)
+
     def test_active_session_cannot_be_deleted(self):
         session = self._session()
         session.action_start()

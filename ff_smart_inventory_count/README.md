@@ -43,6 +43,8 @@ actually submitted by counting sheets are consolidated and adjusted.
   location, assigned user, and scheduled date.
 - On-hand computation reuses repeated product/location reads, and consolidation
   uses Odoo's quant cache plus batched result creation for larger counts.
+- Computed on-hand values remain readable after a sheet is submitted without
+  bypassing the sheet ownership and edit protections.
 
 ## Permissions
 
