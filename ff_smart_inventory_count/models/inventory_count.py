@@ -134,12 +134,26 @@ class InventoryCountSession(models.Model):
         for rec in self:
             if rec.state != "draft":
                 raise UserError(_("Only draft sessions can be started."))
+            if rec.count_scope == "warehouse" and not rec.location_ids:
+                if not rec.warehouse_id:
+                    raise ValidationError(_("Select a warehouse before starting the count."))
+                locations = self.env["stock.location"].search([
+                    ("id", "child_of", rec.warehouse_id.view_location_id.id),
+                    ("usage", "=", "internal"),
+                    ("company_id", "in", [False, rec.company_id.id]),
+                ])
+                if not locations:
+                    raise ValidationError(_("The selected warehouse has no internal locations to count."))
+                rec.location_ids = [(6, 0, locations.ids)]
             assignments = rec.assignment_ids
-            # Preserve the simple one-location setup from earlier revisions.
-            if not assignments and rec.assigned_user_ids and len(rec.location_ids) == 1:
+            # A first count can be prepared with one counter for several
+            # locations. More complex splits still require explicit rows so
+            # that overlapping assignments cannot be created accidentally.
+            if not assignments and rec.assigned_user_ids and len(rec.assigned_user_ids) == 1:
                 assignments = self.env["ff.inventory.count.assignment"].create([
                     {"session_id": rec.id, "assigned_user_id": user.id,
-                     "location_id": rec.location_ids.id}
+                     "location_id": location.id}
+                    for location in rec.location_ids
                     for user in rec.assigned_user_ids
                 ])
             if not assignments:

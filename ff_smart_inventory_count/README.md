@@ -16,6 +16,9 @@ actually submitted by counting sheets are consolidated and adjusted.
   installed. Manual `stock.quant` inventory adjustments are rejected unless
   they carry the controlled Smart Inventory Count approval context.
 - Count sheets are generated from sessions; standalone sheets are blocked.
+- For a first count, select the warehouse, choose **Selected Locations** or
+  **Whole Warehouse**, and select one counting user. With one user selected,
+  the module automatically creates the location assignments and count sheets.
 - Arabic translations are included for the Smart Inventory Count interface.
 - While a sheet is in Counting state, use **Import Lines** to import a CSV/XLSX
   file with `Product` and `Counted Qty` columns. The selected sheet and count

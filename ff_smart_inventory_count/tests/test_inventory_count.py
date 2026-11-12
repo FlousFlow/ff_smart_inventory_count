@@ -46,6 +46,24 @@ class TestSmartInventoryCount(TransactionCase):
         self.assertEqual(session.sheet_ids.mapped("location_id"), self.location | second_location)
         self.assertEqual(len(session.sheet_ids), 2)
 
+    def test_first_count_auto_assigns_one_user_to_multiple_locations(self):
+        second_location = self.env["stock.location"].create({
+            "name": "Smart Count Initial Setup Location",
+            "location_id": self.warehouse.view_location_id.id,
+            "usage": "internal",
+            "company_id": self.warehouse.company_id.id,
+        })
+        counter = self.env.ref("base.user_admin")
+        session = self.env["ff.inventory.count.session"].create({
+            "warehouse_id": self.warehouse.id,
+            "location_ids": [(6, 0, [self.location.id, second_location.id])],
+            "assigned_user_ids": [(6, 0, [counter.id])],
+        })
+        session.action_start()
+        self.assertEqual(len(session.assignment_ids), 2)
+        self.assertEqual(len(session.sheet_ids), 2)
+        self.assertEqual(session.sheet_ids.mapped("location_id"), self.location | second_location)
+
     def test_unassigned_location_blocks_start(self):
         session = self.env["ff.inventory.count.session"].create({
             "warehouse_id": self.warehouse.id,

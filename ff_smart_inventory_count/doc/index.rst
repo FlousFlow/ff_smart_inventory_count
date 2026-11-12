@@ -8,8 +8,10 @@ approved inventory adjustments.
 Workflow
 --------
 
-1. Create a count session and select the warehouse.
-2. Assign each internal location to one or more counting users.
+1. Create a count session, select the warehouse, and choose either selected
+   locations or the whole warehouse.
+2. Select one counting user for a quick first-count setup, or assign each
+   internal location to one or more counting users manually.
 3. Start the session; Odoo creates one sheet per assignment.
 4. Count products manually or import count lines while a sheet is in Counting.
 5. Submit sheets and consolidate the submitted results.
