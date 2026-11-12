@@ -234,6 +234,44 @@ class TestSmartInventoryCount(TransactionCase):
         self.assertTrue(line.applied)
         self.assertEqual(line.account_move_id.state, "posted")
 
+    def test_opening_inventory_uses_opening_account(self):
+        journal = self.env["account.journal"].search([
+            ("company_id", "=", self.warehouse.company_id.id), ("type", "=", "general")
+        ], limit=1)
+        valuation_account = self.env["account.account"].search([
+            ("account_type", "=", "asset_current"),
+        ], limit=1)
+        opening_account = self.env["account.account"].search([
+            ("account_type", "=", "liability_current"),
+        ], limit=1)
+        self.assertTrue(journal and valuation_account and opening_account)
+        company = self.warehouse.company_id
+        company.write({
+            "inventory_count_journal_id": journal.id,
+            "inventory_count_opening_account_id": opening_account.id,
+        })
+        category = self.env["product.category"].create({
+            "name": "Smart Count Opening Category",
+            "property_stock_valuation_account_id": valuation_account.id,
+        })
+        self.product.categ_id = category
+        session = self._session()
+        session.count_type = "opening"
+        line = self.env["ff.inventory.count.consolidated.line"].create({
+            "session_id": session.id,
+            "product_id": self.product.id,
+            "location_id": self.location.id,
+            "product_uom_id": self.product.uom_id.id,
+            "theoretical_qty": 0.0,
+            "counted_qty": 4.0,
+            "reconciliation_status": "adjust",
+            "variance_reason": "opening",
+        })
+        line.apply_adjustment()
+        self.assertTrue(line.applied)
+        self.assertEqual(line.account_move_id.state, "posted")
+        self.assertIn(opening_account, line.account_move_id.line_ids.mapped("account_id"))
+
     def test_real_time_valuation_reclassifies_inventory_loss_account(self):
         valuation_account = self.env["account.account"].search([
             ("account_type", "=", "asset_current"),

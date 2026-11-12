@@ -6,4 +6,14 @@
     <record id="view_count_line_import_tree" model="ir.ui.view"><field name="name">ff.inventory.count.line.import.tree</field><field name="model">ff.inventory.count.line</field><field name="arch" type="xml"><list editable="bottom" import="1"><field name="product_id" string="Product"/><field name="counted_qty" string="Counted Qty"/><field name="sheet_id" column_invisible="1"/></list></field></record>
     <record id="action_count_sessions" model="ir.actions.act_window"><field name="name">Count Sessions</field><field name="res_model">ff.inventory.count.session</field><field name="view_mode">list,form</field></record>
     <record id="action_count_sheets" model="ir.actions.act_window"><field name="name">My Count Sheets</field><field name="res_model">ff.inventory.count.sheet</field><field name="view_mode">list,form</field><field name="domain">[('assigned_user_id', '=', uid)]</field></record>
+    <record id="view_count_session_form_opening_type" model="ir.ui.view">
+        <field name="name">ff.inventory.count.session.form.opening.type</field>
+        <field name="model">ff.inventory.count.session</field>
+        <field name="inherit_id" ref="ff_smart_inventory_count.view_count_session_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='count_scope']" position="before">
+                <field name="count_type"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>

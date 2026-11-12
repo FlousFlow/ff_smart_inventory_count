@@ -657,3 +657,39 @@ msgstr "عيّن مستخدم جرد لكل لوكيشن محدد قبل بدء 
 #. module: ff_smart_inventory_count
 msgid "The same user cannot be assigned to the same location twice in one session."
 msgstr "لا يمكن إسناد نفس المستخدم إلى نفس اللوكيشن مرتين في جلسة واحدة."
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__count_type
+msgid "Count Type"
+msgstr "نوع الجرد"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields.selection,name:ff_smart_inventory_count.selection__ff_inventory_count_session__count_type__regular
+msgid "Regular Inventory Count"
+msgstr "جرد مخزون عادي"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields.selection,name:ff_smart_inventory_count.selection__ff_inventory_count_session__count_type__opening
+msgid "Opening Inventory"
+msgstr "جرد أول المدة"
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_res_company__inventory_count_opening_account_id
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_res_config_settings__inventory_count_opening_account_id
+msgid "Opening Inventory Account"
+msgstr "حساب جرد أول المدة"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.res_config_settings_view_form_inventory_count
+msgid "Account used as the offset when applying a first-period opening inventory count."
+msgstr "الحساب المقابل المستخدم عند تطبيق جرد أول المدة."
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.res_config_settings_view_form_inventory_count
+msgid "Used for opening stock uploaded through an Opening Inventory session."
+msgstr "يستخدم للأرصدة الافتتاحية التي يتم رفعها من خلال جلسة جرد أول المدة."
+
+#. module: ff_smart_inventory_count
+#: model:ir.model.fields.selection,name:ff_smart_inventory_count.selection__ff_inventory_count_consolidated_line__variance_reason__opening
+msgid "Opening Inventory"
+msgstr "جرد أول المدة"

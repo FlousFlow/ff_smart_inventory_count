@@ -9,6 +9,11 @@ class ResCompany(models.Model):
         domain="[('type', '=', 'general')]",
         help="General journal used for accounting entries created by approved inventory count variances.",
     )
+    inventory_count_opening_account_id = fields.Many2one(
+        "account.account", string="Opening Inventory Account", check_company=True,
+        domain="[('deprecated', '=', False)]",
+        help="Offset account used for the first-period inventory count and opening stock balance.",
+    )
     inventory_count_damage_account_id = fields.Many2one(
         "account.account", string="Damaged Products Account", check_company=True,
         domain="[('deprecated', '=', False)]",
@@ -31,6 +36,9 @@ class ResConfigSettings(models.TransientModel):
 
     inventory_count_journal_id = fields.Many2one(
         related="company_id.inventory_count_journal_id", readonly=False,
+    )
+    inventory_count_opening_account_id = fields.Many2one(
+        related="company_id.inventory_count_opening_account_id", readonly=False,
     )
     inventory_count_damage_account_id = fields.Many2one(
         related="company_id.inventory_count_damage_account_id", readonly=False,

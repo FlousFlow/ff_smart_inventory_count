@@ -10,6 +10,11 @@
                     <field name="inventory_count_journal_id" options="{'no_create': True}"/>
                     <div class="text-muted">Use a dedicated general journal, for example Inventory Adjustments.</div>
                 </setting>
+                <setting id="smart_inventory_count_opening_account" string="Opening Inventory Account"
+                         help="Account used as the offset when applying a first-period opening inventory count.">
+                    <field name="inventory_count_opening_account_id" options="{'no_create': True}"/>
+                    <div class="text-muted">Used for opening stock uploaded through an Opening Inventory session.</div>
+                </setting>
                 <setting id="smart_inventory_count_damage_account" string="Damaged Products Account"
                          help="Account used when the variance reason is damaged products.">
                     <field name="inventory_count_damage_account_id" options="{'no_create': True}"/>

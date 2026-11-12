@@ -25,7 +25,7 @@ actually submitted by counting sheets are consolidated and adjusted.
   location are supplied automatically.
 - For each session, assign every location to one or more counting users. A
   separate sheet is generated for every user/location assignment.
-- Configure the inventory count journal and the three variance accounts from
+- Configure the inventory count journal and the variance accounts from
   Inventory → Configuration → Settings before approving variances. Each
   product category used in a count must also have a Stock Valuation Account.
 - Consolidation displays non-zero variances for review. The supervisor selects

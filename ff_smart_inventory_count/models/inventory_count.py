@@ -83,6 +83,10 @@ class InventoryCountSession(models.Model):
     )
     count_scope = fields.Selection([("locations", "Selected Locations"), ("warehouse", "Whole Warehouse")],
                                    default="locations", required=True)
+    count_type = fields.Selection([
+        ("regular", "Regular Inventory Count"),
+        ("opening", "Opening Inventory"),
+    ], default="regular", required=True, string="Count Type")
     movement_policy = fields.Selection([("freeze", "Freeze movements during count"),
                                         ("allow", "Allow movements and review at submission")],
                                        default="allow", required=True)
@@ -242,6 +246,8 @@ class InventoryCountSession(models.Model):
             # approves the session. Zero variances are informational; every
             # non-zero variance is adjusted unless the supervisor chose Ignore.
             if line.reconciliation_status == "pending":
+                if self.count_type == "opening" and not float_is_zero(line.variance_qty, precision_digits=6):
+                    line.variance_reason = "opening"
                 if not float_is_zero(line.variance_qty, precision_digits=6) and not line.variance_reason:
                     raise ValidationError(
                         _("Select a reason for every inventory variance before approval.")
@@ -534,6 +540,7 @@ class InventoryCountConsolidatedLine(models.Model):
     reconciliation_status = fields.Selection([("pending", "Pending"), ("ignore", "Ignore"), ("adjust", "Adjust")],
                                              default="pending", required=True)
     variance_reason = fields.Selection([
+        ("opening", "Opening Inventory"),
         ("damage", "Damaged Products"),
         ("employee_loss", "Employee Loss"),
         ("cogs", "Recognize Cost of Goods Sold"),
@@ -555,6 +562,7 @@ class InventoryCountConsolidatedLine(models.Model):
             raise ValidationError(_("Select a reason before applying an inventory variance."))
         company = self.company_id
         account_by_reason = {
+            "opening": company.inventory_count_opening_account_id,
             "damage": company.inventory_count_damage_account_id,
             "employee_loss": company.inventory_count_employee_loss_account_id,
             "cogs": company.inventory_count_cogs_account_id,
