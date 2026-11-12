@@ -240,19 +240,26 @@ class InventoryCountSession(models.Model):
             grouped[key]["counted_qty"] += line.counted_qty
             grouped[key]["line_ids"].append(line.id)
         Quant = self.env["stock.quant"]
+        product_ids = self.env["product.product"].browse([key[0] for key in grouped])
+        location_ids = self.env["stock.location"].browse([key[1] for key in grouped])
+        products_by_id = {product.id: product for product in product_ids}
+        quants_cache = Quant._get_quants_by_products_locations(product_ids, location_ids)
+        CachedQuant = Quant.with_context(quants_cache=quants_cache)
+        consolidated_vals = []
         for key, values in grouped.items():
             product_id, location_id, lot_id, package_id, owner_id = key
-            quant = Quant._gather(self.env["product.product"].browse(product_id), self.env["stock.location"].browse(location_id),
+            quant = CachedQuant._gather(products_by_id[product_id], self.env["stock.location"].browse(location_id),
                                   lot_id=self.env["stock.lot"].browse(lot_id), package_id=self.env["stock.package"].browse(package_id),
                                   owner_id=self.env["res.partner"].browse(owner_id), strict=True)
             theoretical = sum(quant.mapped("quantity"))
-            product = self.env["product.product"].browse(product_id)
-            self.env["ff.inventory.count.consolidated.line"].create({
+            product = products_by_id[product_id]
+            consolidated_vals.append({
                 "session_id": self.id, "product_id": product_id, "location_id": location_id,
                 "lot_id": lot_id or False, "package_id": package_id or False, "owner_id": owner_id or False,
                 "product_uom_id": product.uom_id.id, "theoretical_qty": theoretical,
                 "counted_qty": values["counted_qty"], "count_source_line_ids": [(6, 0, values["line_ids"])],
             })
+        self.env["ff.inventory.count.consolidated.line"].create(consolidated_vals)
         # Only a fully submitted assignment is allowed to identify missing
         # products. Partial counts intentionally never create zero lines.
         if self.sheet_ids and all(sheet.state == "submitted" for sheet in self.sheet_ids):
@@ -262,12 +269,13 @@ class InventoryCountSession(models.Model):
                 ("quantity", "!=", 0),
                 ("company_id", "=", self.company_id.id),
             ])
+            missing_vals = []
             for quant in quants:
                 key = (quant.product_id.id, quant.location_id.id, quant.lot_id.id,
                        quant.package_id.id, quant.owner_id.id)
                 if key in counted_keys:
                     continue
-                self.env["ff.inventory.count.consolidated.line"].create({
+                missing_vals.append({
                     "session_id": self.id, "product_id": quant.product_id.id,
                     "location_id": quant.location_id.id, "lot_id": quant.lot_id.id or False,
                     "package_id": quant.package_id.id or False, "owner_id": quant.owner_id.id or False,
@@ -275,6 +283,8 @@ class InventoryCountSession(models.Model):
                     "theoretical_qty": quant.quantity, "counted_qty": 0.0,
                     "reconciliation_status": "pending",
                 })
+            if missing_vals:
+                self.env["ff.inventory.count.consolidated.line"].create(missing_vals)
         self.write({"state": "under_review", "count_end_datetime": fields.Datetime.now()})
 
     def action_approve(self):
@@ -523,15 +533,19 @@ class InventoryCountLine(models.Model):
     @api.depends("product_id", "location_id")
     def _compute_on_hand_qty(self):
         Quant = self.env["stock.quant"].sudo()
+        quantity_cache = {}
         for rec in self:
             if not rec.product_id or not rec.location_id:
                 rec.on_hand_qty = 0.0
                 continue
-            rec.on_hand_qty = sum(Quant.search([
-                ("product_id", "=", rec.product_id.id),
-                ("location_id", "child_of", rec.location_id.id),
-                ("company_id", "=", rec.company_id.id),
-            ]).mapped("quantity"))
+            cache_key = (rec.product_id.id, rec.location_id.id, rec.company_id.id)
+            if cache_key not in quantity_cache:
+                quantity_cache[cache_key] = sum(Quant.search([
+                    ("product_id", "=", rec.product_id.id),
+                    ("location_id", "child_of", rec.location_id.id),
+                    ("company_id", "=", rec.company_id.id),
+                ]).mapped("quantity"))
+            rec.on_hand_qty = quantity_cache[cache_key]
 
     @api.onchange("product_id")
     def _onchange_product_id(self):

@@ -41,6 +41,8 @@ actually submitted by counting sheets are consolidated and adjusted.
   quantities remain protected.
 - Session and sheet lists include filters and grouping by state, warehouse,
   location, assigned user, and scheduled date.
+- On-hand computation reuses repeated product/location reads, and consolidation
+  uses Odoo's quant cache plus batched result creation for larger counts.
 
 ## Permissions
 
