@@ -121,6 +121,20 @@ class InventoryCountSession(models.Model):
         return super().create(vals_list)
 
     def write(self, vals):
+        setup_fields = {
+            "company_id", "warehouse_id", "count_scope", "count_type",
+            "location_ids", "assigned_user_ids", "assignment_ids", "movement_policy",
+        }
+        if setup_fields.intersection(vals):
+            for rec in self:
+                if rec.state != "draft":
+                    raise UserError(
+                        _("Session setup cannot be changed after the count starts. Create a new session for a different warehouse, location, or assignment.")
+                    )
+        if "default_variance_reason" in vals:
+            for rec in self:
+                if rec.state in ("done", "cancelled"):
+                    raise UserError(_("The default variance reason cannot be changed on a closed or cancelled session."))
         result = super().write(vals)
         if "default_variance_reason" in vals and vals.get("default_variance_reason"):
             for rec in self:
@@ -129,7 +143,9 @@ class InventoryCountSession(models.Model):
                     and not line.variance_reason
                     and not float_is_zero(line.variance_qty, precision_digits=6)
                 )
-                pending_lines.write({"variance_reason": rec.default_variance_reason})
+                pending_lines.with_context(ff_inventory_count_workflow=True).write(
+                    {"variance_reason": rec.default_variance_reason}
+                )
         return result
 
     @api.constrains("location_ids", "warehouse_id", "company_id")
@@ -364,7 +380,7 @@ class InventoryCountSheet(models.Model):
         return super().create(vals_list)
 
     def write(self, vals):
-        manager = self.env.user.has_group("ff_smart_inventory_count.group_count_manager")
+        manager = self.env.user.has_group("ff_smart_inventory_count.group_count_manager") or self.env.is_superuser()
         protected = {"session_id", "company_id", "assigned_user_id", "location_id", "name"}
         if not manager:
             if protected.intersection(vals):
@@ -655,6 +671,26 @@ class InventoryCountConsolidatedLine(models.Model):
         })
         move.action_post()
         self.write({"applied": True, "account_move_id": move.id})
+
+    def write(self, vals):
+        manager = self.env.user.has_group("ff_smart_inventory_count.group_count_manager") or self.env.is_superuser()
+        protected = {"session_id", "company_id", "product_id", "location_id", "lot_id", "package_id",
+                     "owner_id", "product_uom_id", "theoretical_qty", "counted_qty", "variance_qty",
+                     "variance_value", "currency_id", "count_source_line_ids", "applied", "account_move_id"}
+        generated_fields = protected - {"applied", "account_move_id"}
+        if generated_fields.intersection(vals):
+            raise AccessError(_("Consolidated inventory results are system-generated and cannot be edited."))
+        for rec in self:
+            if rec.applied:
+                raise UserError(_("An applied inventory result cannot be changed."))
+            if not manager and not self.env.is_superuser():
+                raise AccessError(_("Only an inventory supervisor can review inventory variances."))
+            if rec.session_id.state not in ("under_review", "approved") and not manager and not (
+                self.env.context.get("ff_inventory_count_workflow")
+                and set(vals) <= {"variance_reason"}
+            ) and not (set(vals) <= {"applied", "account_move_id"}):
+                raise UserError(_("Variance reasons can only be changed during review."))
+        return super().write(vals)
 
     def unlink(self):
         for rec in self:

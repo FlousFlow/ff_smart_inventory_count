@@ -1,6 +1,6 @@
 {
     "name": "Flous Flow Smart Inventory Count",
-    "version": "20.0.1.0.25",
+    "version": "20.0.1.0.26",
     "category": "Inventory/Inventory",
     "summary": "Controlled multi-user physical inventory counts",
     "description": """Controlled physical inventory counting with employee sheets,

@@ -1,4 +1,4 @@
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
@@ -104,6 +104,27 @@ class TestSmartInventoryCount(TransactionCase):
             assignment.write({"location_id": self.warehouse.view_location_id.id})
         with self.assertRaises(UserError):
             assignment.unlink()
+
+    def test_session_setup_is_immutable_after_start(self):
+        session = self._session()
+        session.action_start()
+        with self.assertRaises(UserError):
+            session.write({"warehouse_id": self.warehouse.id})
+        with self.assertRaises(UserError):
+            session.write({"movement_policy": "freeze"})
+
+    def test_consolidated_results_cannot_change_generated_quantities(self):
+        session = self._session()
+        line = self.env["ff.inventory.count.consolidated.line"].create({
+            "session_id": session.id,
+            "product_id": self.product.id,
+            "location_id": self.location.id,
+            "product_uom_id": self.product.uom_id.id,
+            "theoretical_qty": 5.0,
+            "counted_qty": 3.0,
+        })
+        with self.assertRaises(AccessError):
+            line.write({"counted_qty": 4.0})
 
     def test_manual_stock_quant_inventory_write_is_blocked(self):
         quant = self.env["stock.quant"].create({

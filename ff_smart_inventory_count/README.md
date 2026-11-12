@@ -33,6 +33,14 @@ actually submitted by counting sheets are consolidated and adjusted.
   posts the configured journal entry and applies the stock quantity.
 - Set **Default Variance Reason** on the session to fill all unassigned
   variance lines. Any line with a manually selected reason is preserved.
+- Session setup fields are locked automatically after the count starts, so the
+  warehouse, scope, locations, assignments, and movement policy cannot drift
+  after sheets are created.
+- Consolidated quantities are system-generated. Supervisors can review the
+  variance status/reason, while product, location, theoretical, and counted
+  quantities remain protected.
+- Session and sheet lists include filters and grouping by state, warehouse,
+  location, assigned user, and scheduled date.
 
 ## Permissions
 
