@@ -272,6 +272,22 @@ class TestSmartInventoryCount(TransactionCase):
         self.assertEqual(line.account_move_id.state, "posted")
         self.assertIn(opening_account, line.account_move_id.line_ids.mapped("account_id"))
 
+    def test_session_default_variance_reason_preserves_line_override(self):
+        session = self._session()
+        line = self.env["ff.inventory.count.consolidated.line"].create({
+            "session_id": session.id,
+            "product_id": self.product.id,
+            "location_id": self.location.id,
+            "product_uom_id": self.product.uom_id.id,
+            "theoretical_qty": 5.0,
+            "counted_qty": 3.0,
+        })
+        session.default_variance_reason = "cogs"
+        self.assertEqual(line.variance_reason, "cogs")
+        line.variance_reason = "damage"
+        session.default_variance_reason = "employee_loss"
+        self.assertEqual(line.variance_reason, "damage")
+
     def test_real_time_valuation_reclassifies_inventory_loss_account(self):
         valuation_account = self.env["account.account"].search([
             ("account_type", "=", "asset_current"),

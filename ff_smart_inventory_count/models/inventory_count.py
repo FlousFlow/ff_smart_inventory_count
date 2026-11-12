@@ -87,6 +87,11 @@ class InventoryCountSession(models.Model):
         ("regular", "Regular Inventory Count"),
         ("opening", "Opening Inventory"),
     ], default="regular", required=True, string="Count Type")
+    default_variance_reason = fields.Selection([
+        ("damage", "Damaged Products"),
+        ("employee_loss", "Employee Loss"),
+        ("cogs", "Recognize Cost of Goods Sold"),
+    ], string="Default Variance Reason")
     movement_policy = fields.Selection([("freeze", "Freeze movements during count"),
                                         ("allow", "Allow movements and review at submission")],
                                        default="allow", required=True)
@@ -114,6 +119,18 @@ class InventoryCountSession(models.Model):
             if vals.get("name", "New") == "New":
                 vals["name"] = self.env["ir.sequence"].next_by_code("ff.inventory.count.session") or "New"
         return super().create(vals_list)
+
+    def write(self, vals):
+        result = super().write(vals)
+        if "default_variance_reason" in vals and vals.get("default_variance_reason"):
+            for rec in self:
+                pending_lines = rec.consolidated_line_ids.filtered(
+                    lambda line: line.reconciliation_status == "pending"
+                    and not line.variance_reason
+                    and not float_is_zero(line.variance_qty, precision_digits=6)
+                )
+                pending_lines.write({"variance_reason": rec.default_variance_reason})
+        return result
 
     @api.constrains("location_ids", "warehouse_id", "company_id")
     def _check_locations(self):
@@ -248,6 +265,8 @@ class InventoryCountSession(models.Model):
             if line.reconciliation_status == "pending":
                 if self.count_type == "opening" and not float_is_zero(line.variance_qty, precision_digits=6):
                     line.variance_reason = "opening"
+                elif not line.variance_reason and self.default_variance_reason:
+                    line.variance_reason = self.default_variance_reason
                 if not float_is_zero(line.variance_qty, precision_digits=6) and not line.variance_reason:
                     raise ValidationError(
                         _("Select a reason for every inventory variance before approval.")

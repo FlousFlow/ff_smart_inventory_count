@@ -674,6 +674,11 @@ msgid "Opening Inventory"
 msgstr "جرد أول المدة"
 
 #. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__default_variance_reason
+msgid "Default Variance Reason"
+msgstr "سبب الفرق الافتراضي"
+
+#. module: ff_smart_inventory_count
 #: model:ir.model.fields,field_description:ff_smart_inventory_count.field_res_company__inventory_count_opening_account_id
 #: model:ir.model.fields,field_description:ff_smart_inventory_count.field_res_config_settings__inventory_count_opening_account_id
 msgid "Opening Inventory Account"

@@ -19,10 +19,13 @@ Workflow
 7. The module posts the configured journal entry and applies the quantity
    through Odoo's inventory adjustment engine.
 
+Set a default variance reason on the session to fill only lines without a
+reason. A line with a manually selected reason is preserved.
+
 Accounting setup
 ----------------
 
-Configure the inventory count journal and the three variance accounts in
+Configure the inventory count journal and the variance accounts in
 Inventory ‣ Configuration ‣ Settings. Each product category included in an
 adjustment must have a Stock Valuation Account. The module does not silently
 post an adjustment when this configuration is incomplete.

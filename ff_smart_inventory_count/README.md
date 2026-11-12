@@ -31,6 +31,8 @@ actually submitted by counting sheets are consolidated and adjusted.
 - Consolidation displays non-zero variances for review. The supervisor selects
   Damaged Products, Employee Loss, or Recognize Cost of Goods Sold; approval
   posts the configured journal entry and applies the stock quantity.
+- Set **Default Variance Reason** on the session to fill all unassigned
+  variance lines. Any line with a manually selected reason is preserved.
 
 ## Permissions
 
