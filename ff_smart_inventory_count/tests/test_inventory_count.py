@@ -309,6 +309,14 @@ class TestSmartInventoryCount(TransactionCase):
         session.default_variance_reason = "employee_loss"
         self.assertEqual(line.variance_reason, "damage")
 
+    def test_opening_count_clears_regular_default_reason(self):
+        session = self._session()
+        session.default_variance_reason = "cogs"
+        session.count_type = "opening"
+        self.assertFalse(session.default_variance_reason)
+        session.write({"default_variance_reason": "damage"})
+        self.assertFalse(session.default_variance_reason)
+
     def test_real_time_valuation_reclassifies_inventory_loss_account(self):
         valuation_account = self.env["account.account"].search([
             ("account_type", "=", "asset_current"),

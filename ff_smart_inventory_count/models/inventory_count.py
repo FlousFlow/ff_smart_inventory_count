@@ -121,6 +121,9 @@ class InventoryCountSession(models.Model):
         return super().create(vals_list)
 
     def write(self, vals):
+        vals = dict(vals)
+        if vals.get("count_type") == "opening":
+            vals["default_variance_reason"] = False
         setup_fields = {
             "company_id", "warehouse_id", "count_scope", "count_type",
             "location_ids", "assigned_user_ids", "assignment_ids", "movement_policy",
@@ -135,6 +138,8 @@ class InventoryCountSession(models.Model):
             for rec in self:
                 if rec.state in ("done", "cancelled"):
                     raise UserError(_("The default variance reason cannot be changed on a closed or cancelled session."))
+                if rec.count_type == "opening":
+                    vals["default_variance_reason"] = False
         result = super().write(vals)
         if "default_variance_reason" in vals and vals.get("default_variance_reason"):
             for rec in self:
@@ -147,6 +152,11 @@ class InventoryCountSession(models.Model):
                     {"variance_reason": rec.default_variance_reason}
                 )
         return result
+
+    @api.onchange("count_type")
+    def _onchange_count_type(self):
+        if self.count_type == "opening":
+            self.default_variance_reason = False
 
     @api.constrains("location_ids", "warehouse_id", "company_id")
     def _check_locations(self):

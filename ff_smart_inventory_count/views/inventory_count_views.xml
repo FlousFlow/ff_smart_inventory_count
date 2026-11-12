@@ -17,7 +17,7 @@
                 <field name="count_type"/>
             </xpath>
             <xpath expr="//field[@name='count_scope']" position="after">
-                <field name="default_variance_reason"/>
+                <field name="default_variance_reason" invisible="count_type == 'opening'" help="Used only for regular inventory counts; opening inventory always posts variances to the opening inventory account."/>
             </xpath>
         </field>
     </record>
