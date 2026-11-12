@@ -674,6 +674,26 @@ msgid "Opening Inventory"
 msgstr "جرد أول المدة"
 
 #. module: ff_smart_inventory_count
+msgid "Reset to Draft"
+msgstr "إرجاع لمسودة"
+
+#. module: ff_smart_inventory_count
+msgid "Only an inventory supervisor can return a sheet to draft."
+msgstr "يمكن لمشرف الجرد فقط إرجاع الورقة إلى المسودة."
+
+#. module: ff_smart_inventory_count
+msgid "Only submitted sheets can be returned to draft."
+msgstr "يمكن إرجاع الأوراق المسلّمة فقط إلى المسودة."
+
+#. module: ff_smart_inventory_count
+msgid "A sheet cannot be reopened after the session enters review."
+msgstr "لا يمكن إعادة فتح الورقة بعد دخول الجلسة مرحلة المراجعة."
+
+#. module: ff_smart_inventory_count
+msgid "Counted lines cannot be deleted after the sheet is submitted."
+msgstr "لا يمكن حذف سطور الجرد بعد تسليم الورقة."
+
+#. module: ff_smart_inventory_count
 #: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__default_variance_reason
 msgid "Default Variance Reason"
 msgstr "سبب الفرق الافتراضي"

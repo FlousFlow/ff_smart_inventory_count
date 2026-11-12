@@ -439,11 +439,26 @@ class InventoryCountSheet(models.Model):
                 raise ValidationError(_("Start the sheet and add at least one count line."))
             rec.write({"state": "submitted", "submitted_at": fields.Datetime.now()})
 
+    def action_reset_to_draft(self):
+        """Let a supervisor reopen a submitted sheet before consolidation."""
+        if not (
+            self.env.user.has_group("ff_smart_inventory_count.group_count_manager")
+            or self.env.user.has_group("stock.group_stock_manager")
+            or self.env.is_superuser()
+        ):
+            raise AccessError(_("Only an inventory supervisor can return a sheet to draft."))
+        for rec in self:
+            if rec.state != "submitted":
+                raise UserError(_("Only submitted sheets can be returned to draft."))
+            if rec.session_id.state not in ("in_progress", "submitted"):
+                raise UserError(_("A sheet cannot be reopened after the session enters review."))
+            rec.write({"state": "draft", "submitted_at": False})
+
     def unlink(self):
         for rec in self:
-            if rec.state != "draft" or rec.line_ids or rec.session_id.state != "draft":
+            if rec.state not in ("draft", "in_progress") or rec.session_id.state not in ("draft", "in_progress", "submitted"):
                 raise UserError(
-                    _("A count sheet with activity or counted quantities cannot be deleted.")
+                    _("Counted lines cannot be deleted after the sheet is submitted.")
                 )
         return super().unlink()
 
@@ -597,8 +612,8 @@ class InventoryCountLine(models.Model):
 
     def unlink(self):
         for rec in self:
-            if rec.sheet_id.state != "draft" or rec.sheet_id.session_id.state != "draft":
-                raise UserError(_("Counted lines cannot be deleted after counting has started."))
+            if rec.sheet_id.state not in ("draft", "in_progress") or rec.sheet_id.session_id.state not in ("draft", "in_progress", "submitted"):
+                raise UserError(_("Counted lines cannot be deleted after the sheet is submitted."))
         return super().unlink()
 
 
