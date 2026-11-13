@@ -253,11 +253,18 @@ class InventoryCountSession(models.Model):
                                   owner_id=self.env["res.partner"].browse(owner_id), strict=True)
             theoretical = sum(quant.mapped("quantity"))
             product = products_by_id[product_id]
+            variance_qty = values["counted_qty"] - theoretical
+            variance_reason = False
+            if self.count_type == "opening":
+                variance_reason = "opening"
+            elif self.default_variance_reason and not float_is_zero(variance_qty, precision_digits=6):
+                variance_reason = self.default_variance_reason
             consolidated_vals.append({
                 "session_id": self.id, "product_id": product_id, "location_id": location_id,
                 "lot_id": lot_id or False, "package_id": package_id or False, "owner_id": owner_id or False,
                 "product_uom_id": product.uom_id.id, "theoretical_qty": theoretical,
-                "counted_qty": values["counted_qty"], "count_source_line_ids": [(6, 0, values["line_ids"])],
+                "counted_qty": values["counted_qty"], "variance_reason": variance_reason,
+                "count_source_line_ids": [(6, 0, values["line_ids"])],
             })
         self.env["ff.inventory.count.consolidated.line"].create(consolidated_vals)
         # Only a fully submitted assignment is allowed to identify missing
@@ -281,6 +288,7 @@ class InventoryCountSession(models.Model):
                     "package_id": quant.package_id.id or False, "owner_id": quant.owner_id.id or False,
                     "product_uom_id": quant.product_id.uom_id.id,
                     "theoretical_qty": quant.quantity, "counted_qty": 0.0,
+                    "variance_reason": "opening" if self.count_type == "opening" else self.default_variance_reason or False,
                     "reconciliation_status": "pending",
                 })
             if missing_vals:

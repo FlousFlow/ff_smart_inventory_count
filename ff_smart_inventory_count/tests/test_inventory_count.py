@@ -374,6 +374,21 @@ class TestSmartInventoryCount(TransactionCase):
         self.assertEqual(line.account_move_id.state, "posted")
         self.assertIn(opening_account, line.account_move_id.line_ids.mapped("account_id"))
 
+    def test_opening_count_sets_reason_during_consolidation(self):
+        session = self._session()
+        session.count_type = "opening"
+        session.action_start()
+        sheet = session.sheet_ids
+        sheet.action_start()
+        self.env["ff.inventory.count.line"].create({
+            "sheet_id": sheet.id,
+            "product_id": self.product.id,
+            "counted_qty": 4.0,
+        })
+        sheet.action_submit()
+        session.action_consolidate()
+        self.assertEqual(session.consolidated_line_ids.variance_reason, "opening")
+
     def test_session_default_variance_reason_preserves_line_override(self):
         session = self._session()
         line = self.env["ff.inventory.count.consolidated.line"].create({
