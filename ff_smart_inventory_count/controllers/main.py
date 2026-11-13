@@ -18,8 +18,7 @@ class InventoryCountTemplateController(http.Controller):
         if not sheet:
             return request.not_found()
         try:
-            sheet.check_access_rights("read")
-            sheet.check_access_rule("read")
+            sheet.check_access("read")
         except Exception:
             return request.not_found()
         if sheet.state != "in_progress":
