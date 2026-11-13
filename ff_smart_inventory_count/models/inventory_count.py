@@ -480,6 +480,16 @@ class InventoryCountSheet(models.Model):
             },
         }
 
+    def action_download_import_template(self):
+        self.ensure_one()
+        if self.state != "in_progress":
+            raise UserError(_("The count template is available while the sheet is in Counting state."))
+        return {
+            "type": "ir.actions.act_url",
+            "url": f"/ff_smart_inventory_count/sheet/{self.id}/template",
+            "target": "download",
+        }
+
 
 class InventoryCountLine(models.Model):
     _name = "ff.inventory.count.line"

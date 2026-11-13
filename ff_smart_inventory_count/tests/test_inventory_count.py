@@ -131,6 +131,14 @@ class TestSmartInventoryCount(TransactionCase):
         sheet.action_reset_to_draft()
         self.assertEqual(sheet.state, "draft")
 
+    def test_count_template_action_is_available_only_while_counting(self):
+        session = self._session()
+        session.action_start()
+        sheet = session.sheet_ids
+        sheet.action_start()
+        self.assertEqual(sheet.action_download_import_template()["type"], "ir.actions.act_url")
+        self.assertEqual(sheet.action_download_import_template()["target"], "download")
+
     def test_import_line_resolves_barcode_and_backfills_export_fields(self):
         self.product.barcode = "SMART-IMPORT-001"
         session = self._session()

@@ -26,6 +26,10 @@ actually submitted by counting sheets are consolidated and adjusted.
   reference can also be used for matching through the standard many-to-one
   import options. The selected sheet and count location are supplied
   automatically; the list also shows on-hand quantity for review.
+- Use **Download Count Template** on an active sheet to download a UTF-8 CSV
+  containing the products and quants in the sheet location, including product
+  external ID, name, internal reference, barcode, lot/package, on-hand quantity,
+  and a blank counted-quantity column.
 - For each session, assign every location to one or more counting users. A
   separate sheet is generated for every user/location assignment.
 - Configure the inventory count journal and the variance accounts from

@@ -694,6 +694,14 @@ msgid "Counted lines cannot be deleted after the sheet is submitted."
 msgstr "لا يمكن حذف سطور الجرد بعد تسليم الورقة."
 
 #. module: ff_smart_inventory_count
+msgid "Download Count Template"
+msgstr "تنزيل نموذج الجرد"
+
+#. module: ff_smart_inventory_count
+msgid "The count template is available while the sheet is in Counting state."
+msgstr "نموذج الجرد متاح أثناء كون الورقة في حالة جاري الجرد."
+
+#. module: ff_smart_inventory_count
 #: model:ir.model.fields,field_description:ff_smart_inventory_count.field_ff_inventory_count_session__default_variance_reason
 msgid "Default Variance Reason"
 msgstr "سبب الفرق الافتراضي"
