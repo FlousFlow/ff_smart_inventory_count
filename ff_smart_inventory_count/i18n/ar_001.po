@@ -698,6 +698,10 @@ msgid "Download Count Template"
 msgstr "تنزيل نموذج الجرد"
 
 #. module: ff_smart_inventory_count
+msgid "Template for Inventory Count Lines"
+msgstr "قالب بنود الجرد"
+
+#. module: ff_smart_inventory_count
 msgid "The count template is available while the sheet is in Counting state."
 msgstr "نموذج الجرد متاح أثناء كون الورقة في حالة جاري الجرد."
 

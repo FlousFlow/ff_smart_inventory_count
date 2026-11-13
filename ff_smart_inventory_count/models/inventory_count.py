@@ -467,16 +467,15 @@ class InventoryCountSheet(models.Model):
         if self.state != "in_progress":
             raise UserError(_("Import is available while the sheet is in Counting state."))
         return {
-            "type": "ir.actions.act_window",
-            "name": _("Import Count Lines"),
-            "res_model": "ff.inventory.count.line",
-            "view_mode": "list,form",
-            "views": [(self.env.ref("ff_smart_inventory_count.view_count_line_import_tree").id, "list")],
-            "domain": [("sheet_id", "=", self.id)],
-            "context": {
-                "default_sheet_id": self.id,
-                "default_location_id": self.location_id.id,
-                "search_default_sheet_id": self.id,
+            "type": "ir.actions.client",
+            "tag": "import",
+            "params": {
+                "active_model": "ff.inventory.count.line",
+                "context": {
+                    "default_sheet_id": self.id,
+                    "default_location_id": self.location_id.id,
+                    "search_default_sheet_id": self.id,
+                },
             },
         }
 
@@ -524,6 +523,14 @@ class InventoryCountLine(models.Model):
     counted_by = fields.Many2one("res.users", default=lambda self: self.env.user, readonly=True)
     input_method = fields.Selection([("barcode", "Barcode"), ("manual", "Manual")], default="manual", required=True)
     barcode_reference = fields.Char(copy=False)
+
+    @api.model
+    def get_import_templates(self):
+        """Expose the standard Odoo import template on the import screen."""
+        return [{
+            "label": _("Template for Inventory Count Lines"),
+            "template": "/ff_smart_inventory_count/static/xlsx/count_lines_import_template.xlsx",
+        }]
 
     @api.model_create_multi
     def create(self, vals_list):

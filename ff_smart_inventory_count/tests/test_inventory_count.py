@@ -139,6 +139,24 @@ class TestSmartInventoryCount(TransactionCase):
         self.assertEqual(sheet.action_download_import_template()["type"], "ir.actions.act_url")
         self.assertEqual(sheet.action_download_import_template()["target"], "download")
 
+    def test_count_line_import_uses_standard_import_action(self):
+        session = self._session()
+        session.action_start()
+        sheet = session.sheet_ids
+        sheet.action_start()
+        action = sheet.action_open_line_import()
+        self.assertEqual(action["type"], "ir.actions.client")
+        self.assertEqual(action["tag"], "import")
+        self.assertEqual(action["params"]["active_model"], "ff.inventory.count.line")
+
+    def test_standard_import_template_is_exposed_on_count_line_model(self):
+        template = self.env["ff.inventory.count.line"].get_import_templates()
+        self.assertEqual(len(template), 1)
+        self.assertEqual(
+            template[0]["template"],
+            "/ff_smart_inventory_count/static/xlsx/count_lines_import_template.xlsx",
+        )
+
     def test_import_line_resolves_barcode_and_backfills_export_fields(self):
         self.product.barcode = "SMART-IMPORT-001"
         session = self._session()
