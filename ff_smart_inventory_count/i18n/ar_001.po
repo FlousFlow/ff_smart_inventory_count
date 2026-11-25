@@ -8,6 +8,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. module: ff_smart_inventory_count
+#: model:ir.model.fields,field_description:ff_smart_inventory_count.field_product_product__reserved_qty
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.product_product_stock_tree_reserved_qty
+msgid "Reserved Quantity"
+msgstr "الكمية المحجوزة"
+
+#. module: ff_smart_inventory_count
+#: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.product_product_stock_tree_reserved_qty
+msgid "Total Reserved Quantity"
+msgstr "إجمالي الكمية المحجوزة"
+
+#. module: ff_smart_inventory_count
 #. module: ff_smart_inventory_count
 #: model_terms:ir.ui.view,arch_db:ff_smart_inventory_count.view_count_session_form
 msgid "Smart Inventory Count"

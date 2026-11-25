@@ -1,5 +1,10 @@
 # Flous Flow Smart Inventory Count
 
+The standard Stock report includes a **Reserved Quantity** column beside
+**Free to Use**. It is calculated from Odoo's stock quantities in the active
+location, warehouse, date, and company context (`On Hand - Free to Use`). Users
+can hide or show it through the report's standard column selector.
+
 Odoo 20 Community addon for controlled physical inventory counting. It keeps
 counting separate from Odoo stock until a supervisor approves a consolidated
 result, then uses the standard `stock.quant` inventory adjustment engine.

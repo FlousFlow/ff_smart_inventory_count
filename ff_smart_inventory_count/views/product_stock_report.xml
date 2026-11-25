@@ -1,0 +1,16 @@
+<odoo>
+    <record id="product_product_stock_tree_reserved_qty" model="ir.ui.view">
+        <field name="name">product.product.stock.list.reserved.quantity</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.product_product_stock_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='free_qty']" position="after">
+                <field name="reserved_qty"
+                       string="Reserved Quantity"
+                       sum="Total Reserved Quantity"
+                       optional="show"
+                       decoration-muted="reserved_qty == 0"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
